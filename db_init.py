@@ -15,6 +15,7 @@ def init_db():
         username TEXT UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
         email TEXT UNIQUE,
+        phone TEXT,
         role TEXT DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
@@ -34,6 +35,12 @@ def init_db():
         FOREIGN KEY (user_id) REFERENCES users (id)
     )
     ''')
+    
+    # Safeguard: Add phone column if it doesn't exist (migration)
+    try:
+        cursor.execute("ALTER TABLE users ADD COLUMN phone TEXT")
+    except:
+        pass
     
     conn.commit()
     conn.close()
