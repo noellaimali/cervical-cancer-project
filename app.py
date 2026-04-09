@@ -1,5 +1,11 @@
-# CytoScan v1.2 - Secure Stable Edition
 import streamlit as st
+# 1. PAGE CONFIGURATION
+st.set_page_config(
+    page_title="Cervical Cancer Prediction Model",
+    page_icon="🔬",
+    layout="wide"
+)
+
 import tensorflow as tf
 import sqlite3
 import numpy as np
@@ -29,12 +35,7 @@ try:
 except:
     pass
 
-# 1. PAGE CONFIGURATION
-st.set_page_config(
-    page_title="Cervical Cancer Prediction Model",
-    page_icon="🔬",
-    layout="wide"
-)
+# 1. Page Config (Moved to Top)
 
 # 2. CONSTANTS
 MODEL_PATH = 'cervical_cell_classifier.h5'
@@ -55,6 +56,8 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 def set_bg_as_page_bg(bin_file):
+    if not os.path.exists(bin_file):
+        return
     bin_str = get_base64_of_bin_file(bin_file)
     ext = bin_file.split('.')[-1].lower()
     mime = f"image/{ext}" if ext != 'jpg' else 'image/jpeg'
