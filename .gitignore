@@ -1,0 +1,15 @@
+# Python dependencies
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+.venv/
+
+# Database
+cytoscan.db
+
+# Any specific dataset folders you don't want to upload (uncomment to ignore)
+abnormal cells/
+normal cells/
+invalid cells/
