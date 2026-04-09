@@ -1,6 +1,7 @@
 streamlit
-tensorflow
-h5py
+tensorflow-cpu==2.15.0
+numpy==1.26.4
+h5py==3.10.0
 Pillow
 pandas
 plotly

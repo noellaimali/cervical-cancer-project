@@ -1,6 +1,7 @@
 # CytoScan v1.2 - Secure Stable Edition
 import streamlit as st
 import tensorflow as tf
+import sqlite3
 import numpy as np
 from PIL import Image
 import json
@@ -11,6 +12,22 @@ import plotly.graph_objects as go
 import base64
 import auth
 import time
+import db_init
+
+# Initialize database
+db_init.init_db()
+
+# Ensure a default admin existed for deployment testing
+try:
+    auth.register_user("admin", "admin123", email="admin@cytoscan.com", phone="000")
+    # Promote to admin if not already
+    conn = sqlite3.connect('cytoscan.db')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET role = 'admin' WHERE username = 'admin'")
+    conn.commit()
+    conn.close()
+except:
+    pass
 
 # 1. PAGE CONFIGURATION
 st.set_page_config(
